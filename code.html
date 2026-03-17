@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html class="light" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>O Informante - Renda Real</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,700;1,400&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#ec5b13",
+                        "background-light": "#f8f6f6",
+                        "background-dark": "#221610",
+                        "forbes-black": "#000000",
+                        "forbes-grey": "#757575",
+                        "forbes-border": "#e0e0e0",
+                        "forbes-green": "#008a00"
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "serif": ["Lora", "serif"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Public Sans', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .serif-name {
+            font-family: 'Lora', serif;
+        }
+
+        .swiper {
+            width: 100%;
+            max-width: 56rem;
+            padding-bottom: 30px;
+        }
+
+        .swiper-pagination-bullet-active {
+            background: #ec5b13 !important;
+        }
+
+        .btn-nav {
+            transition: all 0.3s ease;
+        }
+
+        .btn-nav.active {
+            background-color: black;
+            color: white;
+        }
+
+        .login-input {
+            border-bottom: 1px solid #e0e0e0 !important;
+            border-top: none !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-radius: 0 !important;
+        }
+
+        .login-input:focus {
+            border-bottom: 1px solid #ec5b13 !important;
+            ring: 0 !important;
+            outline: none !important;
+        }
+
+        .btn-ano.active-ano {
+            background-color: black !important;
+            color: white !important;
+        }
+    </style>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark min-h-screen flex flex-col items-center justify-center p-6">
+
+    <div id="tela-login" class="w-full max-w-sm flex flex-col items-center">
+        <div class="bg-forbes-black w-12 h-12 flex items-center justify-center rounded-sm mb-6">
+            <span class="text-white font-bold text-2xl">F</span>
+        </div>
+        <h2 class="serif-name text-3xl text-slate-900 mb-8 tracking-tight">O Informante</h2>
+        <div class="w-full space-y-6">
+            <input type="text" id="user" placeholder="USUÁRIO"
+                class="login-input w-full bg-transparent py-2 text-[10px] font-bold tracking-widest uppercase">
+            <input type="password" id="pass" placeholder="SENHA"
+                class="login-input w-full bg-transparent py-2 text-[10px] font-bold tracking-widest uppercase">
+            <button onclick="validarLogin()"
+                class="w-full bg-black text-white py-4 text-[10px] font-bold uppercase tracking-widest hover:bg-primary transition-all duration-500">Solicitar
+                Acesso</button>
+            <p id="erro-login" class="text-red-500 text-[10px] font-bold uppercase text-center hidden mt-4">Acesso
+                Negado</p>
+        </div>
+    </div>
+
+    <div id="conteudo-principal" class="hidden w-full flex flex-col items-center">
+        <div
+            class="fixed top-6 z-50 flex flex-wrap justify-center gap-2 bg-white/90 backdrop-blur-md p-1.5 rounded-full border border-forbes-border shadow-lg max-w-[95%]">
+            <button onclick="mudarModo('geral')"
+                class="btn-nav active px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest">Vista
+                Geral</button>
+            <div class="w-[1px] h-6 bg-gray-200 self-center mx-1"></div>
+            <button onclick="verConsolidado('Joesley')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-forbes-grey hover:text-black">Joesley</button>
+            <button onclick="verConsolidado('Wesley')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-forbes-grey hover:text-black">Wesley</button>
+            <button onclick="verConsolidado('Ronaldo')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-forbes-grey hover:text-black">Ronaldo</button>
+            <button onclick="verConsolidado('Fabio')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-forbes-grey hover:text-black">Fabio</button>
+            <button onclick="verConsolidado('Marcelo')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-forbes-grey hover:text-black">Marcelo</button>
+            <div class="w-[1px] h-6 bg-gray-200 self-center mx-1"></div>
+            <button onclick="verConsolidado('Larry')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-black">Larry
+                Ellison</button>
+            <button onclick="verConsolidado('Amancio')"
+                class="btn-nav px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest text-blue-600 hover:text-black">Amancio
+                Ortega</button>
+        </div>
+
+        <div id="seletor-anos" class="mt-20 flex flex-wrap justify-center gap-2">
+            <button onclick="mudarAno('2021', this)"
+                class="btn-ano px-4 py-1 rounded-md text-xs font-bold border border-black hover:bg-black hover:text-white transition">2021</button>
+            <button onclick="mudarAno('2022', this)"
+                class="btn-ano px-4 py-1 rounded-md text-xs font-bold border border-black hover:bg-black hover:text-white transition">2022</button>
+            <button onclick="mudarAno('2023', this)"
+                class="btn-ano px-4 py-1 rounded-md text-xs font-bold border border-black hover:bg-black hover:text-white transition">2023</button>
+            <button onclick="mudarAno('2024', this)"
+                class="btn-ano px-4 py-1 rounded-md text-xs font-bold border border-black hover:bg-black hover:text-white transition">2024</button>
+            <button onclick="mudarAno('2025', this)"
+                class="btn-ano active-ano px-4 py-1 rounded-md text-xs font-bold border border-black transition">2025</button>
+        </div>
+
+        <div id="container-geral" class="swiper mySwiper mt-8">
+            <div class="swiper-wrapper" id="wrapper-bilionarios"></div>
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <div id="container-individual" class="mt-20 w-full max-w-4xl hidden">
+            <div
+                class="bg-white border border-forbes-border rounded-lg overflow-hidden shadow-lg flex flex-col md:flex-row min-h-[500px]">
+                <div class="flex-[1.5] p-8 md:p-12 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="bg-forbes-black w-6 h-6 flex items-center justify-center rounded-sm"><span
+                                    class="text-white font-bold text-xs">F</span></div>
+                            <span class="text-[10px] font-bold tracking-widest uppercase">Relatório Consolidado
+                                Global</span>
+                        </div>
+                        <h2 id="rel-nome" class="serif-name text-5xl text-slate-900 mb-2"></h2>
+                        <p id="rel-ticker" class="text-primary font-bold text-[10px] tracking-widest uppercase mb-8">
+                        </p>
+                        <div class="mb-10">
+                            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">Total Acumulado no
+                                Período</p>
+                            <p id="rel-total" class="text-5xl font-bold text-slate-900"></p>
+                        </div>
+                        <div class="space-y-6" id="lista-anos"></div>
+                    </div>
+                    <button onclick="mudarModo('geral')"
+                        class="mt-12 flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest hover:text-primary transition-colors">
+                        <span class="material-symbols-outlined text-sm">arrow_back</span> Voltar para Vista Geral
+                    </button>
+                </div>
+                <div class="flex-1 relative overflow-hidden bg-gray-100 border-l border-forbes-border group">
+                    <img id="rel-foto" src=""
+                        class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let anoSelecionado = '2025';
+        let swiperInstance = null;
+
+        function validarLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if (u === 'felipe' && p === '2025') {
+                document.getElementById('tela-login').classList.add('hidden');
+                document.getElementById('conteudo-principal').classList.remove('hidden');
+                renderizarCards();
+            } else {
+                document.getElementById('erro-login').classList.remove('hidden');
+            }
+        }
+
+        document.addEventListener('keypress', (e) => { if (e.key === 'Enter') validarLogin(); });
+
+        function mudarModo(modo) {
+            document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove('active'));
+            if (modo === 'geral') {
+                document.getElementById('container-geral').classList.remove('hidden');
+                document.getElementById('seletor-anos').classList.remove('hidden');
+                document.getElementById('container-individual').classList.add('hidden');
+                document.querySelector('[onclick="mudarModo(\'geral\')"]').classList.add('active');
+                renderizarCards();
+            }
+        }
+
+        function mudarAno(ano, btn) {
+            anoSelecionado = ano;
+            document.querySelectorAll('.btn-ano').forEach(b => b.classList.remove('active-ano'));
+            btn.classList.add('active-ano');
+            renderizarCards();
+        }
+
+        async function renderizarCards() {
+            const wrapper = document.getElementById('wrapper-bilionarios');
+            wrapper.innerHTML = `<div class="swiper-slide flex justify-center p-20 italic">Sincronizando Base de Dados Global...</div>`;
+            try {
+                const response = await fetch(`http://localhost:5001/api/fortunas?ano=${anoSelecionado}`);
+                const dados = await response.json();
+                wrapper.innerHTML = '';
+                dados.forEach(p => {
+                    const slide = document.createElement('div');
+                    slide.className = 'swiper-slide';
+                    slide.innerHTML = `
+                        <div class="bg-white border border-forbes-border rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row min-h-[400px]">
+                            <div class="flex-[1.8] p-8 md:p-12 flex flex-col justify-between text-left">
+                                <div>
+                                    <div class="flex items-center gap-3 mb-8">
+                                        <div class="bg-forbes-black w-8 h-8 flex items-center justify-center rounded-sm"><span class="text-white font-bold text-lg">F</span></div>
+                                        <span class="text-[10px] font-bold tracking-widest uppercase">Perfil Oficial • ${anoSelecionado}</span>
+                                    </div>
+                                    <h1 class="serif-name text-5xl font-medium mb-6 text-slate-900">${p.nome}</h1>
+                                    <div class="flex flex-col">
+                                        <div class="font-bold text-[10px] text-forbes-grey uppercase tracking-widest mb-1">Renda Anual</div>
+                                        <div class="flex items-baseline gap-1">
+                                            <span class="text-6xl md:text-7xl font-semibold text-slate-900 tracking-tighter">${p.renda_anual}</span>
+                                        </div>
+                                        <div class="flex items-center gap-1 font-bold text-sm mt-1 text-forbes-green">
+                                            <span class="material-symbols-outlined text-sm">payments</span>
+                                            <span>${p.media_mensal} (Média Mensal)</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex-1 bg-gray-100 border-l border-forbes-border relative overflow-hidden group">
+                                <img src="./${p.foto}" class="absolute inset-0 w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-in-out">
+                            </div>
+                        </div>`;
+                    wrapper.appendChild(slide);
+                });
+                if (swiperInstance) swiperInstance.destroy(true, true);
+                swiperInstance = new Swiper(".mySwiper", { pagination: { el: ".swiper-pagination", clickable: true } });
+            } catch (e) { console.error(e); }
+        }
+
+        async function verConsolidado(perfil) {
+            document.getElementById('container-geral').classList.add('hidden');
+            document.getElementById('seletor-anos').classList.add('hidden');
+            document.getElementById('container-individual').classList.remove('hidden');
+            document.querySelectorAll('.btn-nav').forEach(b => {
+                b.classList.remove('active');
+                if (b.innerText.toLowerCase().includes(perfil.toLowerCase())) b.classList.add('active');
+            });
+
+            try {
+                const res = await fetch(`http://localhost:5001/api/consolidado/${perfil}`);
+                const d = await res.json();
+                document.getElementById('rel-nome').innerText = d.nome;
+                document.getElementById('rel-ticker').innerText = d.ticker;
+                document.getElementById('rel-total').innerText = d.total_geral;
+                document.getElementById('rel-foto').src = `./${d.foto}`;
+                const lista = document.getElementById('lista-anos');
+                lista.innerHTML = d.historico.map(h => `
+                    <div>
+                        <div class="flex justify-between items-end mb-1">
+                            <span class="font-bold text-slate-400 text-[10px] uppercase">${h.ano}</span>
+                            <span class="font-bold text-slate-800 text-sm">${h.valor}</span>
+                        </div>
+                        <div class="w-full bg-gray-100 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primary h-full transition-all duration-1000" style="width: ${Math.random() * 60 + 40}%"></div>
+                        </div>
+                    </div>`).join('');
+            } catch (e) { console.error(e); }
+        }
+    </script>
+</body>
+
+</html>
